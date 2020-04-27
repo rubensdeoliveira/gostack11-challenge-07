@@ -43,8 +43,8 @@ const Dashboard: React.FC = () => {
     loadProducts()
   }, [])
 
-  function handleAddToCart(item: ProductData): void {
-    addToCart(item)
+  const handleAddToCart = async (item: ProductData): Promise<void> => {
+    await addToCart(item)
   }
 
   return (
