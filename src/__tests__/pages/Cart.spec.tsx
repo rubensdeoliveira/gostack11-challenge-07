@@ -1,9 +1,9 @@
 /* eslint-disable import/first */
 
-import React from 'react';
+import React from 'react'
 
-import { mocked } from 'ts-jest/utils';
-import { render, fireEvent, act } from '@testing-library/react-native';
+import { mocked } from 'ts-jest/utils'
+import { render, fireEvent, act } from '@testing-library/react-native'
 
 jest.mock('../../hooks/cart.tsx', () => ({
   __esModule: true,
@@ -11,17 +11,17 @@ jest.mock('../../hooks/cart.tsx', () => ({
     addToCart: jest.fn(),
     products: [],
   }),
-}));
+}))
 
 jest.mock('../../utils/formatValue.ts', () => ({
   __esModule: true,
   default: jest.fn().mockImplementation(value => value),
-}));
+}))
 
-import Cart from '../../pages/Cart';
-import { useCart } from '../../hooks/cart';
+import Cart from '../../pages/Cart'
+import { useCart } from '../../hooks/cart'
 
-const useCartMocked = mocked(useCart);
+const useCartMocked = mocked(useCart)
 
 useCartMocked.mockReturnValue({
   addToCart: jest.fn(),
@@ -45,37 +45,37 @@ useCartMocked.mockReturnValue({
   ],
   increment: jest.fn(),
   decrement: jest.fn(),
-});
+})
 
 describe('Dashboard', () => {
   it('should be able to list products on the cart', async () => {
-    const { getByText } = render(<Cart />);
+    const { getByText } = render(<Cart />)
 
-    expect(getByText('Cadeira Rivatti')).toBeTruthy();
-    expect(getByText('400')).toBeTruthy();
-    expect(getByText('2000')).toBeTruthy();
-    expect(getByText('5x')).toBeTruthy();
+    expect(getByText('Cadeira Rivatti')).toBeTruthy()
+    expect(getByText('400')).toBeTruthy()
+    expect(getByText('2000')).toBeTruthy()
+    expect(getByText('5x')).toBeTruthy()
 
-    expect(getByText('Poltrona de madeira')).toBeTruthy();
-    expect(getByText('600')).toBeTruthy();
-    expect(getByText('6000')).toBeTruthy();
-    expect(getByText('10x')).toBeTruthy();
-  });
-
-  it('should be able to calculate the cart total', async () => {
-    const { getByText } = render(<Cart />);
-
-    expect(getByText('8000')).toBeTruthy();
-  });
+    expect(getByText('Poltrona de madeira')).toBeTruthy()
+    expect(getByText('600')).toBeTruthy()
+    expect(getByText('6000')).toBeTruthy()
+    expect(getByText('10x')).toBeTruthy()
+  })
 
   it('should be able to calculate the cart total', async () => {
-    const { getByText } = render(<Cart />);
+    const { getByText } = render(<Cart />)
 
-    expect(getByText('15 itens')).toBeTruthy();
-  });
+    expect(getByText('8000')).toBeTruthy()
+  })
+
+  it('should be able to calculate the cart total', async () => {
+    const { getByText } = render(<Cart />)
+
+    expect(getByText('15 itens')).toBeTruthy()
+  })
 
   it('should be able to increment product quantity on the cart', async () => {
-    const increment = jest.fn();
+    const increment = jest.fn()
 
     useCartMocked.mockReturnValue({
       addToCart: jest.fn(),
@@ -91,19 +91,19 @@ describe('Dashboard', () => {
       ],
       increment,
       decrement: jest.fn(),
-    });
+    })
 
-    const { getByTestId } = render(<Cart />);
+    const { getByTestId } = render(<Cart />)
 
     act(() => {
-      fireEvent.press(getByTestId('increment-1234'));
-    });
+      fireEvent.press(getByTestId('increment-1234'))
+    })
 
-    expect(increment).toHaveBeenCalledWith('1234');
-  });
+    expect(increment).toHaveBeenCalledWith('1234')
+  })
 
   it('should be able to decrement product quantity on the cart', async () => {
-    const decrement = jest.fn();
+    const decrement = jest.fn()
 
     useCartMocked.mockReturnValue({
       addToCart: jest.fn(),
@@ -119,14 +119,14 @@ describe('Dashboard', () => {
       ],
       increment: jest.fn(),
       decrement,
-    });
+    })
 
-    const { getByTestId } = render(<Cart />);
+    const { getByTestId } = render(<Cart />)
 
     act(() => {
-      fireEvent.press(getByTestId('decrement-1234'));
-    });
+      fireEvent.press(getByTestId('decrement-1234'))
+    })
 
-    expect(decrement).toHaveBeenCalledWith('1234');
-  });
-});
+    expect(decrement).toHaveBeenCalledWith('1234')
+  })
+})

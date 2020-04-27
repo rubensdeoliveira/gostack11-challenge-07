@@ -41,6 +41,30 @@ const CartProvider: React.FC = ({ children }) => {
     loadProducts()
   }, [])
 
+  const addToCart = useCallback(
+    async ({ id, title, image_url, price }) => {
+      const productIndex = products.findIndex(prod => id === prod.id)
+
+      const product = { id, title, image_url, price, quantity: 1 }
+
+      if (productIndex < 0) {
+        setProducts([...products, product])
+      } else {
+        const newProducts = products
+        newProducts[productIndex].quantity += 1
+        setProducts([...newProducts])
+      }
+
+      await AsyncStorage.setItem(
+        '@GoStack11Desafio07:products',
+        JSON.stringify(products),
+      )
+
+      console.log('1')
+    },
+    [products],
+  )
+
   const increment = useCallback(
     async id => {
       const newProducts = products
@@ -55,30 +79,10 @@ const CartProvider: React.FC = ({ children }) => {
 
       await AsyncStorage.setItem(
         '@GoStack11Desafio07:products',
-        JSON.stringify(newProducts),
-      )
-    },
-    [products],
-  )
-
-  const addToCart = useCallback(
-    async ({ id, title, image_url, price }) => {
-      const productExists = products.find(prod => id === prod.id)
-
-      const product = { id, title, image_url, price, quantity: 1 }
-
-      if (!productExists) {
-        setProducts([...products, product])
-      } else {
-        increment(product.id)
-      }
-
-      await AsyncStorage.setItem(
-        '@GoStack11Desafio07:products',
         JSON.stringify(products),
       )
     },
-    [products, increment],
+    [products],
   )
 
   const decrement = useCallback(
@@ -93,13 +97,11 @@ const CartProvider: React.FC = ({ children }) => {
         newProducts.splice(productIndex, 1)
       }
 
-      console.log(newProducts.length)
-
       setProducts([...newProducts])
 
       await AsyncStorage.setItem(
         '@GoStack11Desafio07:products',
-        JSON.stringify(newProducts),
+        JSON.stringify(products),
       )
     },
     [products],
