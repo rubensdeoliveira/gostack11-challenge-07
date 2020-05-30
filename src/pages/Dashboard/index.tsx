@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/member-delimiter-style */
 import React, { useState, useEffect } from 'react'
 import FeatherIcon from 'react-native-vector-icons/Feather'
 
@@ -21,7 +22,7 @@ import {
   ProductButton,
 } from './styles'
 
-interface ProductData {
+interface Product {
   id: string
   title: string
   image_url: string
@@ -31,7 +32,7 @@ interface ProductData {
 const Dashboard: React.FC = () => {
   const { addToCart } = useCart()
 
-  const [products, setProducts] = useState<ProductData[]>([])
+  const [products, setProducts] = useState<Product[]>([])
 
   useEffect(() => {
     async function loadProducts(): Promise<void> {
@@ -43,8 +44,8 @@ const Dashboard: React.FC = () => {
     loadProducts()
   }, [])
 
-  const handleAddToCart = async (item: ProductData): Promise<void> => {
-    await addToCart(item)
+  const handleAddToCart = (item: Product): void => {
+    addToCart(item)
   }
 
   return (
@@ -57,7 +58,7 @@ const Dashboard: React.FC = () => {
           ListFooterComponentStyle={{
             height: 80,
           }}
-          renderItem={({ item }: { item: ProductData }) => (
+          renderItem={({ item }: { item: Product }) => (
             <Product>
               <ProductImage source={{ uri: item.image_url }} />
               <ProductTitle>{item.title}</ProductTitle>

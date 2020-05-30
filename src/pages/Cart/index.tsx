@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/member-delimiter-style */
 import React, { useMemo } from 'react'
 import FeatherIcon from 'react-native-vector-icons/Feather'
 
@@ -38,12 +39,12 @@ interface Product {
 const Cart: React.FC = () => {
   const { increment, decrement, products } = useCart()
 
-  const handleIncrement = async (id: string): Promise<void> => {
-    await increment(id)
+  const handleIncrement = (id: string): void => {
+    increment(id)
   }
 
-  const handleDecrement = async (id: string): Promise<void> => {
-    await decrement(id)
+  const handleDecrement = (id: string): void => {
+    decrement(id)
   }
 
   const cartTotal = useMemo(() => {
