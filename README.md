@@ -36,7 +36,7 @@ Gostack is immersive training in technologies, react and react natively.</p>
 
 - **`Show total value of items in the cart`**: Both on the `Dashboard` page and on the `Cart` page you must display the total value of all the items that are in your cart.
 
-- ⚛️ **React Native** — A lib that provides a way to create native apps for Android and iOS
+- ⚛️ **React Native** — A lib that provides a way to create native apps for Android and iOS.
 
 ### Tests
 
